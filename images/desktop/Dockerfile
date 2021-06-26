@@ -65,10 +65,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
         vdpauinfo
 
 # Install VirtualGL for off-screen rendering with Xpra
-ARG VIRTUALGL_VERSION=2.6.90
-RUN \
-    curl -fsSL -o /tmp/virtualgl.deb https://s3.amazonaws.com/virtualgl-pr/dev/linux/virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
-    apt-get update && gdebi -n /tmp/virtualgl.deb
+# ARG VIRTUALGL_VERSION=2.6.90
+# RUN \
+#     curl -fsSL -o /tmp/virtualgl.deb https://s3.amazonaws.com/virtualgl-pr/main/linux/virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
+#     apt-get update && gdebi -n /tmp/virtualgl.deb
 
 # Install socat for uinput control socket forwarding
 RUN apt-get install -y \
