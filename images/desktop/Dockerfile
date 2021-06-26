@@ -65,10 +65,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
         vdpauinfo
 
 # Install VirtualGL for off-screen rendering with Xpra
-# ARG VIRTUALGL_VERSION=2.6.90
-# RUN \
-#     curl -fsSL -o /tmp/virtualgl.deb https://s3.amazonaws.com/virtualgl-pr/main/linux/virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
-#     apt-get update && gdebi -n /tmp/virtualgl.deb
+ARG VIRTUALGL_VERSION=2.6.90
+RUN \
+    curl -fsSL -o /tmp/virtualgl.deb https://s3.amazonaws.com/virtualgl-pr/main/linux/virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
+    apt-get update && gdebi -n /tmp/virtualgl.deb
 
 # Install socat for uinput control socket forwarding
 RUN apt-get install -y \
@@ -87,6 +87,12 @@ RUN \
     wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - && \
     sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" && \
     sudo apt update && sudo apt install -y code
+
+ARG VSCODE_VERSION=1.57.1-1623937013
+RUN \
+    curl -fsSL -o /tmp/vscode.deb https://packages.microsoft.com/repos/vscode/pool/main/c/code/code_${VSCODE_VERSION}_amd64.deb && \
+    apt-get update && sudo dpkg -i /tmp/vscode.deb
+
 RUN \
     sudo mkdir -p /etc/skel/Desktop && sudo cp /usr/share/applications/code.desktop /etc/skel/Desktop/ && \
     sudo chmod +x /etc/skel/Desktop/code.desktop && \
